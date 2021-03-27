@@ -35,7 +35,7 @@ class handTracker():
                         cv2.circle(self.img,(cx,cy),15,(0,0,255),cv2.FILLED)
                     getPositionArr.append((handId,id,cx,cy))
         if noOfHands:
-            cv2.putText(self.img,str(len(getPositionArr)//21),(610,25),cv2.FONT_HERSHEY_COMPLEX,1,(255,0,0),3)
+            cv2.putText(self.img,"Hand = "+str(len(getPositionArr)//21),(1100,55),cv2.FONT_HERSHEY_COMPLEX,1,(255,0,0),3)
         return getPositionArr
 
 
@@ -48,7 +48,8 @@ def main():
     tracker = handTracker()
     while True:
         success, img = vc.read()
-        tracker.findHands(img)
+        img = cv2.resize(img,(1280,720))
+        tracker.findHands(img,drawHands=True)
         ldmkArr = tracker.getPosition()
         # FPS Calculation
         ctime = time.time()
